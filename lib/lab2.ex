@@ -445,7 +445,7 @@ defmodule Lab2 do
       case func.(key, value) do
         # Если функция возвращает true, узел добавляется в результат
         true ->
-          filter(left, func) ++ [key, value] ++ filter(right, func)
+          filter(left, func) ++ [{key, value}] ++ filter(right, func)
 
         # Если функция возвращает false, узел пропускается
         false ->
