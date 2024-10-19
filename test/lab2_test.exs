@@ -23,21 +23,6 @@ defmodule Lab2Test do
       abs(right.height - left.height) <= 1
   end
 
-  def insert_all(l) do
-    r =
-      :lists.foldl(
-        fn {key, value}, acc ->
-          cur = AVLDict.insert(acc, key, value)
-          assert balance_check(cur) == true
-        end,
-        @null_node,
-        l
-      )
-
-    list_r = AVLDict.to_list(r)
-    assert ^list_r = :lists.usort(l)
-  end
-
   def remove_all(l, t) do
     {empty_t, _} =
       :lists.foldl(
