@@ -140,7 +140,7 @@ defmodule Lab2 do
       do: %Node{node | value: value}
 
     # Вставка значения узла по ключу в AVL-дерево - если ключ входного узла больше входного ключа, то
-    #рекурсивно ищем место для значения и вставляем его в левом поддереве. После вставки - балансируем дерево
+    # рекурсивно ищем место для значения и вставляем его в левом поддереве. После вставки - балансируем дерево
     def insert(%Node{left: left} = node, key, value) when node.key > key do
       new_left = insert(left, key, value)
       balance(%Node{node | left: new_left, height: max(height(new_left) + 1, node.height)})

@@ -160,10 +160,15 @@ defmodule Lab2Test do
   test "Map Number Multiplication By Two" do
     l = [{1, 1}, {2, 2}, {3, 3}]
     expected_l = [{1, 2}, {2, 4}, {3, 6}]
-    node = AVLDict.from_list(l)
-    |> AVLDict.map(fn {key, value} when not is_nil(value) -> {key, value * 2}
-    {key, value} -> {key, value} end)
-    |> Enum.filter(fn {key, value} -> not is_nil(key) and not is_nil(value) end)
+
+    node =
+      AVLDict.from_list(l)
+      |> AVLDict.map(fn
+        {key, value} when not is_nil(value) -> {key, value * 2}
+        {key, value} -> {key, value}
+      end)
+      |> Enum.filter(fn {key, value} -> not is_nil(key) and not is_nil(value) end)
+
     assert node == expected_l
   end
 
@@ -171,23 +176,27 @@ defmodule Lab2Test do
   test "Filter More Than One" do
     l = [{1, 1}, {2, 2}, {3, 3}]
     expected_l = [{2, 2}, {3, 3}]
-    node = AVLDict.from_list(l)
-    |> AVLDict.filter(fn key, _value -> key > 1 end)
+
+    node =
+      AVLDict.from_list(l)
+      |> AVLDict.filter(fn key, _value -> key > 1 end)
+
     assert node == expected_l
   end
 
   # Тестирование функции find по нахождению значения элемента с искомым ключом
   test "Find Node Value With Key" do
-    l = [{1,234}, {5, 1233}, {22, 1232}]
+    l = [{1, 234}, {5, 1233}, {22, 1232}]
     node = AVLDict.from_list(l)
     {_, found_value} = AVLDict.find(5, node)
     assert found_value == 1233
   end
+
   # Тестирование функции find_min по нахождению значения узла с минимальным ключом
   test "Find Node With Min Key" do
     l = [{1, 100}, {2, 2}, {3, 3}]
     node = AVLDict.from_list(l)
-    {min_el, _, _} =  AVLDict.find_min(node)
+    {min_el, _, _} = AVLDict.find_min(node)
     assert min_el.value == 100
   end
 
@@ -203,7 +212,10 @@ defmodule Lab2Test do
   test "Fold Right Summator" do
     l = [{1, 100}, {2, 2}, {3, 3}]
     node = AVLDict.from_list(l)
-    node_summator = AVLDict.foldr(node, 0, fn acc, {_, value} when not is_nil(value) -> acc + value end)
+
+    node_summator =
+      AVLDict.foldr(node, 0, fn acc, {_, value} when not is_nil(value) -> acc + value end)
+
     assert node_summator == 105
   end
 
